@@ -51,4 +51,4 @@ MonoBehaviour:
   squareShapeImage: {fileID: 7310355292003572021, guid: cfb9a3d2014877d45b0ce139960c1b74, type: 3}
   shapeSelectedScale: {x: 0.8, y: 0.8, z: 0.8}
   offset: {x: 0, y: 700}
-  CurrentShapeData: {fileID: 11400000, guid: 8e3de0ac311e20d4eaddcbe43ab1345b, type: 2}
+  CurrentShapeData: {fileID: 11400000, guid: 1b66eee8504bcb44f98daad214263212, type: 2}

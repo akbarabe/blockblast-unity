@@ -273,9 +273,8 @@ public class Grid : MonoBehaviour
 
         if(validShapes == 0)
         {
-            // game over
-            // GameEvents.GameOver(false);
-            Debug.Log("Game Over!");
+            GameEvents.GameOver(false);
+            // Debug.Log("Game Over!");
         }
     }
 

@@ -1032,6 +1032,7 @@ MonoBehaviour:
   startPosition: {x: -435, y: 442}
   squareScale: 0.9
   everySquareOffset: 0.5
+  squareTextureData: {fileID: 11400000, guid: 7e742f775e7bc3e489da2534112fb5fc, type: 2}
 --- !u!114 &451157870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2468,6 +2469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d123d2f9a0a0a94d8884a48ea28e7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squareTextureData: {fileID: 11400000, guid: 7e742f775e7bc3e489da2534112fb5fc, type: 2}
   scoreText: {fileID: 133683129}
 --- !u!224 &1946369870 stripped
 RectTransform:

@@ -1,18 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SquareTextureData : MonoBehaviour
+[CreateAssetMenu]
+[System.Serializable]
+public class SquareTextureData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    [System.Serializable]
+    public class TextureData
     {
-        
+        public Sprite texture;
+        public Config.SquareColor squareColor;
     }
 
-    // Update is called once per frame
-    void Update()
+    public int tresholdVal = 10;
+    private const int StartTreshordVal = 100;
+    public List<TextureData> activeSquareTextures;
+    public Config.SquareColor currentColor;
+    private Config.SquareColor _nextColor;
+
+    private int GetCurrentColorIndex()
     {
-        
+        var currentIndex = 0;
+
+        for(int index = 0; index < activeSquareTextures.Count; index++)
+        {
+            if(activeSquareTextures[index].squareColor == currentColor)
+            {
+                currentIndex = index;
+            }
+        }
+
+        return currentIndex;
+    }
+
+    public void UpdateColors(int current_score)
+    {
+        currentColor = _nextColor;
+        var currentColorIndex = GetCurrentColorIndex();
+
+        if(currentColorIndex == activeSquareTextures.Count - 1)
+        {
+            _nextColor = activeSquareTextures[0].squareColor;
+        }
+        else
+        {
+            _nextColor = activeSquareTextures[currentColorIndex + 1].squareColor;
+        }
+
+        tresholdVal = StartTreshordVal + current_score;
+    }
+
+    public void SetStartColor()
+    {
+        tresholdVal = StartTreshordVal;
+        currentColor = activeSquareTextures[0].squareColor;
+        _nextColor = activeSquareTextures[1].squareColor;
+    }
+
+    private void Awake()
+    {
+        SetStartColor();
+    }
+
+    private void OnEnable()
+    {
+        SetStartColor();    
     }
 }

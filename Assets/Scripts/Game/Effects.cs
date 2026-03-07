@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Effects : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public List<GameObject> Writtings;
+
     void Start()
     {
-        
+        GameEvents.ShowEffectsWrittings += ShowEffects;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        GameEvents.ShowEffectsWrittings -= ShowEffects;
+    }
+
+    private void ShowEffects()
+    {
+        var index = Random.Range(0, Writtings.Count);
+        Writtings[index].SetActive(true);
     }
 }

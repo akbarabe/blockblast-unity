@@ -15,7 +15,7 @@ public class SquareTextureData : ScriptableObject
     }
 
     public int tresholdVal = 10;
-    private const int StartTreshordVal = 100;
+    private const int StartTreshordVal = 10;
     public List<TextureData> activeSquareTextures;
     public Config.SquareColor currentColor;
     private Config.SquareColor _nextColor;

@@ -20,6 +20,7 @@ public class Grid : MonoBehaviour
     private LineIndicator _lineIndicator; // test
 
     private Config.SquareColor currentActiveSquareColor_ = Config.SquareColor.NotSet;
+    private List<Config.SquareColor> colorsInTheGrid_ = new List<Config.SquareColor>();
 
     void Start()
     {
@@ -31,6 +32,26 @@ public class Grid : MonoBehaviour
     private void OnUpdateSquareColor(Config.SquareColor color)
     {
         currentActiveSquareColor_ = color;
+    }
+
+    private List<Config.SquareColor> GetAllSquareColorsInTheGrid()
+    {
+        var colors = new List<Config.SquareColor>();
+
+        foreach(var square in _gridSquares)
+        {
+            var gridSquare = square.GetComponent<GridSquare>();
+            if (gridSquare.SquareOccupied)
+            {
+                var color = gridSquare.GetCurrentColor();
+                if(colors.Contains(color) == false)
+                {
+                    colors.Add(color);
+                }
+            }
+        }
+
+        return colors;
     }
 
     private void CreateGrid()
@@ -206,16 +227,49 @@ public class Grid : MonoBehaviour
             lines.Add(data.ToArray());
         }
 
+        // This function need to be called before CheckIfSquareAreCompleted.
+        colorsInTheGrid_ = GetAllSquareColorsInTheGrid();
+
         var completedLines = CheckIfSquareAreCompleted(lines);
 
-        if(completedLines > 2)
+        if(completedLines >= 2)
         {
-            // Next video: play bonus animation
+            GameEvents.ShowEffectsWrittings();
         }
 
         var totalScores = 10 * completedLines;
-        GameEvents.AddScores(totalScores);
+        var bonusScores = ShouldPlayColorBonusAnimation();
+        GameEvents.AddScores(totalScores + bonusScores);
         CheckIfPlayerLost();
+    }
+
+    private int ShouldPlayColorBonusAnimation()
+    {
+        var colorsInTheGridAfterLineRemoved = GetAllSquareColorsInTheGrid();
+        Config.SquareColor colorToPlayBonusFor = Config.SquareColor.NotSet;
+        foreach(var squareColor in colorsInTheGrid_)
+        {
+            if(colorsInTheGridAfterLineRemoved.Contains(squareColor) == false)
+            {
+                colorToPlayBonusFor = squareColor;
+            }
+        }
+
+        if(colorToPlayBonusFor == Config.SquareColor.NotSet)
+        {
+            Debug.Log("Cannot fing color for bonus");
+            return 0;
+        }
+
+        // Should never play bonus for the current color.
+        if(colorToPlayBonusFor == currentActiveSquareColor_)
+        {
+            return 0;
+        }
+
+        GameEvents.ShowBonusScreen(colorToPlayBonusFor);
+
+        return 50;
     }
 
     private int CheckIfSquareAreCompleted(List<int[]> data)

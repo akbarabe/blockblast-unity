@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squareTextureData: {fileID: 11400000, guid: 7e742f775e7bc3e489da2534112fb5fc, type: 2}
-  updateImageOnRechedTreshold: 1
+  updateImageOnRechedTreshold: 0
 --- !u!1 &7035991114440332716
 GameObject:
   m_ObjectHideFlags: 0

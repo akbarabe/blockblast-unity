@@ -19,7 +19,3 @@ This project was created to practice:
 - Grid-based systems
 - Block placement logic
 - Score management system
-- Mobile gameplay optimization
-
-## 📄 License
-MIT License
